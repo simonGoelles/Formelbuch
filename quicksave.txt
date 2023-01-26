@@ -1,0 +1,27 @@
+Try at CRUD:
+    from sqlalchemy import create_engine, update, select, delete
+    from sqlalchemy.orm import sessionmaker, Session
+    from model import Formel, Kategorie, Kapitel
+
+    engine = create_engine("sqlite:///Formel.db", echo=True)
+    Session = sessionmaker(bind=engine)
+    session = Session()
+    myinput = int(input)
+    mystrinput = str(input)
+    myformelinput = str(input)
+    myergebnisinput = str(input)
+
+    class CRUDE():
+        def save():
+            session.add(Formel(Formel=myformelinput, Description=mystrinput, Ergebnis=myergebnisinput, Kategorie_id=1))
+
+        def updateing():
+            session.execute(update(Formel(Description="this a decription, test", Kategorie_id=1)))
+
+        def read():
+            session.execute(select(Formel()))
+
+        def remove():
+            result = session.execute(select(Formel).where(Formel.id==myinput))
+            delete(result)
+Didn't Work....
