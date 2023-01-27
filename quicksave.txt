@@ -1,27 +1,23 @@
-Try at CRUD:
-    from sqlalchemy import create_engine, update, select, delete
-    from sqlalchemy.orm import sessionmaker, Session
-    from model import Formel, Kategorie, Kapitel
+class Formel(Base):
+    __tablename__ = 'Formel'
+    id = Column(Integer, primary_key=True)
+    Kategorie_id = Column(Integer, ForeignKey("Kategorie.id"))
+    Formel = Column(String)
+    Description = Column(String)
+    Ergebnis = Column(String)
 
-    engine = create_engine("sqlite:///Formel.db", echo=True)
-    Session = sessionmaker(bind=engine)
-    session = Session()
-    myinput = int(input)
-    mystrinput = str(input)
-    myformelinput = str(input)
-    myergebnisinput = str(input)
 
-    class CRUDE():
-        def save():
-            session.add(Formel(Formel=myformelinput, Description=mystrinput, Ergebnis=myergebnisinput, Kategorie_id=1))
+class Kategorie(Base):
+    __tablename__ = 'Kategorie'
+    id = Column(Integer, primary_key=True)
+    Kapitel_id = Column(Integer, ForeignKey("Kapitel.id"))
+    Kategorie = Column(String)
 
-        def updateing():
-            session.execute(update(Formel(Description="this a decription, test", Kategorie_id=1)))
 
-        def read():
-            session.execute(select(Formel()))
+class Kapitel(Base):
+    __tablename__ = 'Kapitel'
+    id = Column(Integer, primary_key=True)
+    Kapitel = Column(String)
 
-        def remove():
-            result = session.execute(select(Formel).where(Formel.id==myinput))
-            delete(result)
-Didn't Work....
+
+Base.metadata.create_all(engine)

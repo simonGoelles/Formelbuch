@@ -3,24 +3,16 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import Column, BIGINT, VARCHAR, INTEGER
 from sqlalchemy.schema import CreateTable
 from flask_sqlalchemy import SQLAlchemy
-from CreateClassDB import Formel
-
-engine = create_engine('sqlite:///Formelheft.db', echo=True)
-meta = MetaData()
 Base = declarative_base()
-db = SQLAlchemy()
 
-class Formel(db.Model):
-    __tablename__= "Formel"
-
-    id = db.Column(db.Integer, primary_key=True)
-    formeldescription = db.Column(db.String())
-    formelsigns = db.Column(db.String())
+class Formel(Base):
+    __tablename__ = 'Formel'
+    id = Column(Integer, primary_key=True)
+    Kategorie_id = Column(Integer, ForeignKey("Kategorie.id"))
+    Formel = Column(String)
+    Description = Column(String)
+    Ergebnis = Column(String)
 
     def __init__(self, formeldescription, formelsigns):
         self.formeldescription = formeldescription
         self.formelsigns = formelsigns
-
-    def __repr__(self) -> str:
-        return f"{self.formeldescription}:{self.formelsigns}"
-
