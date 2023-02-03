@@ -1,4 +1,4 @@
-from flask import Flask, request, redirect, render_template
+from flask import Flask, request, redirect, render_template, abort
 from flask_sqlalchemy import SQLAlchemy
 from model import Formel
 db = SQLAlchemy()
@@ -27,16 +27,37 @@ def create():
 
 @app.route('/data')
 def RetrieveDataList():
-    formel = Formel.query.all()
-    return render_template('datalist.html',formel = formel)
+    formel = db.session.query(Formel).all()
+    return render_template('data.html',formel = formel)
 
 
-@app.route('/data/{id}}')
-def RetrieveSingleEmployee(id):
-    formel = Formel.query.filter_by(id=id).first()
-    if formel:
-        return render_template('data.html', formel = formel)
+@app.route('/data/<int:id>')
+def RetrieveSingleFormel(id):
+    formel = db.session.query(Formel).filter(Formel.id==id).all()[0]
+    if formel!=None:
+        return render_template('singleData.html', formel = formel)
     return f"formel with id ={id} doesn't exist"
+
+@app.route('/data/<int:id>/delete', methods=['GET','POST'])
+def delete(id):
+    formel = db.session.query(Formel).filter(Formel.id==id).all()[0]
+    if request.method == 'POST':
+        if formel!=None:
+            db.session.delete(formel)
+            db.session.commit()
+            return redirect('/data')
+        abort(404)
+    return render_template('delete.html')
+
+@app.route('/data/<int:id>/update', methods=['GET', 'POST'])
+def Update(id):
+    formel = db.session.query(Formel).filter(Formel.id==id).all()[0]
+    if request.method == 'POST':
+        if formel!=None:
+            db.session.update(formel)
+            db.session.commit()
+            return redirect("/data")
+    return render_template('update.html', formel = formel)
 
 
 app.run(debug=True)
