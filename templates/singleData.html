@@ -1,6 +1,19 @@
-<h3>Id</h3>
-<p>{{formel.id}}</p><hr>
 <h3>Formeldescription:</h3>
 <p>{{formel.formeldescription}}</p><hr>
 <h3>Formel:</h3>
 <p>{{formel.formelsigns}}</p><hr>
+<style>
+    button { 
+      display: block;
+      font-size: .90em;
+      margin-top: 2.33em;
+      margin-bottom: 2.33em;
+      margin-left: 0;
+      margin-right: 0;
+      font-weight: bold;
+    }
+</style>
+<form action='/data/{{formel.id}}' method="post">
+    <button type="submit" name="action" value="update">Update this formel</button>
+    <button type="submit" name="action" value="delete">Delete this formel</button>
+</form>

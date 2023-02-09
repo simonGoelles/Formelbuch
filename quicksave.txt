@@ -1,23 +1,12 @@
-class Formel(Base):
-    __tablename__ = 'Formel'
-    id = Column(Integer, primary_key=True)
-    Kategorie_id = Column(Integer, ForeignKey("Kategorie.id"))
-    Formel = Column(String)
-    Description = Column(String)
-    Ergebnis = Column(String)
-
-
-class Kategorie(Base):
-    __tablename__ = 'Kategorie'
-    id = Column(Integer, primary_key=True)
-    Kapitel_id = Column(Integer, ForeignKey("Kapitel.id"))
-    Kategorie = Column(String)
-
-
-class Kapitel(Base):
-    __tablename__ = 'Kapitel'
-    id = Column(Integer, primary_key=True)
-    Kapitel = Column(String)
-
-
-Base.metadata.create_all(engine)
+<body>
+    {% for formel in formel %}
+      <div class="formel-card">
+        <h3 class="formel-signs">
+          <a href="http://127.0.0.1:5000/data/{{formel.id}}">{{formel.formelsigns}}</a>
+        </h3>
+        <div class="formel-description-container">
+          <p class="formel-description">{{formel.formeldescription}}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </body>

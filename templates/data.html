@@ -1,9 +1,43 @@
-
-{% for formel in formel %}
-    <h3>Id</h3>
-    <p>{{formel.id}}</p><hr>
-    <h3>Formeldescription:</h3>
-    <p>{{formel.formeldescription}}</p><hr>
-    <h3>Formel:</h3>
-    <p>{{formel.formelsigns}}</p><hr>
-{% endfor %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+      .formel-card {
+        border: 1px solid gray;
+        padding: 10px;
+        margin-bottom: 10px;
+        min-width: 120px;
+        max-width: 400px;
+        transition: max-width 0.2s ease-in-out;
+        overflow: hidden;
+      }
+  
+      .formel-description-container {
+        display: none;
+      }
+  
+      .formel-signs:hover + .formel-description-container {
+        display: block;
+        max-width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>Categories</h2>
+    <ul>
+      <li><a href="/data/Geometry">Geometry</a></li>
+      <li><a href="/data/physics">Physics</a></li>
+    </ul>
+    <h2>Formulas</h2>
+    {% for formel in formel %}
+      <div class="formel-card">
+        <h3 class="formel-signs">
+          <a href="http://127.0.0.1:5000/data/{{formel.id}}">{{formel.formelsigns}}</a>
+        </h3>
+        <div class="formel-description-container">
+          <p class="formel-description">{{formel.formeldescription}}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </body>
+</html>
