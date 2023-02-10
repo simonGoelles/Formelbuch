@@ -25,8 +25,9 @@
   <body>
     <h2>Categories</h2>
     <ul>
-      <li><a href="/data/Geometry">Geometry</a></li>
-      <li><a href="/data/physics">Physics</a></li>
+      {% for category in category %}
+        <li><a href="/data/{{category.catname}}">{{category.catname}}</a></li>
+      {% endfor %}
     </ul>
     <h2>Formulas</h2>
     {% for formel in formel %}

@@ -1,3 +1,8 @@
 {
-    "flake8.logLevel": "error"
+    "flake8.logLevel": "error",
+    "python.testing.pytestArgs": [
+        "tests"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
 }

@@ -5,8 +5,8 @@
 <p>{{formel.formelsigns}}</p><hr>
 
 <h3>Updated Formel</h3>
-<form action='' method = "POST">
-    <p>formeldescription <input type = "text" name = "formeldescription" /></p>
-    <p>formelsigns <input type = "text" name = "formelsigns" /></p>
+<form action='{{ url_for('Update', id=id) }}' method="POST">
+    <p>formeldescription <input type = "text" name = "formeldescription" value="{{ formel.formeldescription }}" /></p>
+    <p>formelsigns <input type = "text" name = "formelsigns" value="{{ formel.formelsigns }}" /></p>
     <p><input type = "submit" value = "Submit" /></p>
-  </form>
+</form>
